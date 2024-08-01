@@ -1,4 +1,4 @@
-libraries include functons for transformation and imputation
+libraries include functions for transformation and imputation
 
 classification and imputation from microbiome are functions that reproduce the results
 
