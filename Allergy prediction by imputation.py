@@ -186,5 +186,4 @@ print("true positive",np.mean(SENSITIVITY))
 print("true negative",np.mean(SPECIFICITY))
 print("n opt",np.mean(N_OPT))
 print(N_OPT)
-
 print(np.std(AUC_TEST))
