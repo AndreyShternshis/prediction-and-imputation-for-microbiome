@@ -1,4 +1,4 @@
-Scripts used in the paper "Predicting postpartum depression and food allergy from incomplete microbiome data"
+Scripts used in the paper "Predicting allergy and postpartum depression from incomplete compositional microbiome"
 
 To run the codes, you need 2 files for each of dataset: metadata and species profile. For the latter of the depression dataset, name the first column Sample_id.
 
