@@ -57,9 +57,10 @@ Folder libraries include libraries for transformation and imputation.
 To run the codes, 2 files are needed for each dataset: metadata and species profile.
 
 - Dataset 1 is available on NCBI under BioProject PRJEB62678. In the species profile, name the first column Sample_id.
+- Dataset 2 can be found on NCBI BioProject PRJNA730851.
 
 **Requirements** 
 
 The versions of all python modules are listed in requirements.txt
 
-- Dataset 2 can be found on NCBI BioProject PRJNA730851.
+
