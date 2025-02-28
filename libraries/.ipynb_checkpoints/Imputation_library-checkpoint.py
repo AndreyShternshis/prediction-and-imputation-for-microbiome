@@ -15,26 +15,17 @@ from sklearn.preprocessing import StandardScaler
 #imputation_GPR(Y_nm, Y_m, Y_input, seed_sampling)
 #imputation_linear(Y_nm, Y_m, Y_input)
 #imputation_SVR(Y_nm, Y_m, Y_input)
-def impute(X_full, X_val, X_part, nm, m, seed_sampling, arg, Imputation_by): #for imputing only needed bacteria
+def impute(X_full, X_val, X_part, nm, m, seed_sampling, arg): #for imputing only needed bacteria
     X_input = X_part[:, nm, :]
     Y_input = Transformation_library.CLR(X_input, keepdim=False)
     Y_full, Y_val = Transformation_library.CLR(X_full, keepdim = False), Transformation_library.CLR(X_val, keepdim=False)
     Y_nm, Y_val_nm = Y_full[:, nm, :], Y_val[:, nm, :]  # not missing
     Y_m, Y_val_m = Y_full[:, m, arg], Y_val[:, m, arg]  # missing
-    if Imputation_by=="linear":    
-        Y_output = list(map(imputation_linear,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="SVR":
-         Y_output = list(map(imputation_SVR,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="GPR":
-         Y_output = list(map(imputation_GPR,[(Y_nm, Y_m, Y_input, seed_sampling)]))[0]
-    elif Imputation_by=="CVAE":
-         Y_output = list(map(imputation_CVAE1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
-    elif Imputation_by=="cGAN":
-         Y_output = list(map(imputation_cGAN1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
+    Y_output = imputation_SVR(Y_nm, Y_m, Y_input)
     X_part[:, m, arg] = Transformation_library.softmax(Y_output)[:,:-1]
     return X_part
 
-def impute_one(X_full, X_val, X_part, nm, m, seed_sampling, Imputation_by):  #for imputing one tp from two tps
+def impute_one(X_full, X_val, X_part, nm, m, seed_sampling):  #for imputing one tp from two tps
     X_input = X_part[:, nm, :]
     Y_input = Transformation_library.CLR(X_input, keepdim=False)
     Y_input = Y_input.reshape(np.shape(Y_input)[0], -1)
@@ -42,66 +33,36 @@ def impute_one(X_full, X_val, X_part, nm, m, seed_sampling, Imputation_by):  #fo
     Y_nm, Y_val_nm = Y_full[:, nm, :], Y_val[:, nm, :]  # not missing
     Y_nm, Y_val_nm = Y_nm.reshape(np.shape(Y_nm)[0], -1), Y_val_nm.reshape(np.shape(Y_val_nm)[0], -1)
     Y_m, Y_val_m = Y_full[:, m, :], Y_val[:, m, :]  # missing
-    if Imputation_by=="linear":    
-        Y_output = list(map(imputation_linear,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="SVR":
-         Y_output = list(map(imputation_SVR,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="GPR":
-         Y_output = list(map(imputation_GPR,[(Y_nm, Y_m, Y_input, seed_sampling)]))[0]
-    elif Imputation_by=="CVAE":
-         Y_output = list(map(imputation_CVAE1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
-    elif Imputation_by=="cGAN":
-         Y_output = list(map(imputation_cGAN1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
+    Y_output = imputation_SVR(Y_nm, Y_m, Y_input)
     X_part[:, m, :] = Transformation_library.softmax(Y_output)
     return X_part
 
-def impute_two(D_02, D_12, X_val, X_2, nm, m, seed_sampling, Imputation_by): #for imputing two tp from 1 tp
+def impute_two(D_02, D_12, X_val, X_2, nm, m, seed_sampling): #for imputing tp 0 and tp 1
     Y_input = Transformation_library.CLR(X_2[:, nm, :], keepdim = False)
     Y_nm, Y_val_nm = Transformation_library.CLR(D_02[:, nm, :], keepdim = False), Transformation_library.CLR(X_val[:, nm, :], keepdim = False)  # not missing
     Y_m, Y_val_m = Transformation_library.CLR(D_02[:, m[0], :], keepdim = False), Transformation_library.CLR(X_val[:, m[0], :], keepdim = False) # missing
-    if Imputation_by=="linear":    
-        Y_output = list(map(imputation_linear,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="SVR":
-         Y_output = list(map(imputation_SVR,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="GPR":
-         Y_output = list(map(imputation_GPR,[(Y_nm, Y_m, Y_input, seed_sampling)]))[0]
-    elif Imputation_by=="CVAE":
-         Y_output = list(map(imputation_CVAE1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
-    elif Imputation_by=="cGAN":
-         Y_output = list(map(imputation_cGAN1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
+    Y_output = imputation_SVR(Y_nm, Y_m, Y_input)
     X_2[:, m[0], :] = Transformation_library.softmax(Y_output)
     ###
     Y_nm, Y_val_nm = Transformation_library.CLR(D_12[:, nm, :], keepdim = False), Transformation_library.CLR(X_val[:, nm, :], keepdim = False)  # not missing
     Y_m,  Y_val_m= Transformation_library.CLR(D_12[:, m[1], :], keepdim = False), Transformation_library.CLR(X_val[:, m[1], :], keepdim = False)  # missing
-    if Imputation_by=="linear":    
-        Y_output = list(map(imputation_linear,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="SVR":
-         Y_output = list(map(imputation_SVR,[(Y_nm, Y_m, Y_input)]))[0]
-    elif Imputation_by=="GPR":
-         Y_output = list(map(imputation_GPR,[(Y_nm, Y_m, Y_input, seed_sampling)]))[0]
-    elif Imputation_by=="CVAE":
-         Y_output = list(map(imputation_CVAE1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
-    elif Imputation_by=="cGAN":
-         Y_output = list(map(imputation_cGAN1,[(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m)]))[0]
+    Y_output = imputation_SVR(Y_nm, Y_m, Y_input)
     X_2[:, m[1], :] = Transformation_library.softmax(Y_output)
     return X_2
 
-def imputation_GPR(args):
-    Y_nm, Y_m, Y_input, seed_sampling = args
+def imputation_GPR(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm=[], Y_val_m=[]):
     gp = GaussianProcessRegressor(n_restarts_optimizer=5, random_state = seed_sampling)
     gp.fit(Y_nm, Y_m)
     Y_output = gp.predict(Y_input)
     return Y_output
 
-def imputation_linear(args):
-    Y_nm, Y_m, Y_input = args
+def imputation_linear(Y_nm, Y_m, Y_input, seed_sampling=10, Y_val_nm=[], Y_val_m=[]):
     reg = LinearRegression()
     reg.fit(Y_nm, Y_m)
     Y_output = reg.predict(Y_input)
     return Y_output
 
-def imputation_SVR(args):
-    args = Y_nm, Y_m, Y_input
+def imputation_SVR(Y_nm, Y_m, Y_input, seed_sampling=10, Y_val_nm=[], Y_val_m=[]):
     Y_output = []
     reg = make_pipeline(StandardScaler(), SVR())
     for i in range(np.shape(Y_m)[1]):
@@ -110,10 +71,7 @@ def imputation_SVR(args):
         Y_output = Y_output_line if np.size(Y_output) == 0 else np.concatenate([Y_output, Y_output_line], axis = -1)
     return Y_output
 
-def imputation_cGAN1(args):
-    Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m = args
-    latent_dim = 1
-    epochs = 1000
+def imputation_cGAN1(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m, latent_dim = 1, epochs = 1000):
     class Discriminator(nn.Module):
         def __init__(self, input_dim, hidden_dim):
             super(Discriminator, self).__init__()
@@ -193,10 +151,7 @@ def imputation_cGAN1(args):
     Y_output = cgan.Generator(Y_input).detach().numpy()
     return Y_output
 
-def imputation_CVAE1(args):
-    args = Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m
-    latent_dim = 1
-    epochs = 1000
+def imputation_CVAE1(Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m, latent_dim = 1, epochs = 1000):
     class Encoder(nn.Module):
         def __init__(self, input_dim, output_dim, hidden_dim):
             super(Encoder, self).__init__()

@@ -44,8 +44,3 @@ def LR(X):
             Y[:,k]=np.log(X[:,i]) - np.log(X[:,j])
             k+=1
     return Y
-
-def transform_2(X_, arg_bacteria):
-    stats = np.divide(X_[:, 1, arg_bacteria[0]], X_[:, 1, arg_bacteria[1]]).reshape(-1,1)
-    stats = np.append(stats, np.divide(X_[:, 0, arg_bacteria[0]], X_[:, 0, arg_bacteria[1]]).reshape(-1,1), axis=1)
-    return stats
