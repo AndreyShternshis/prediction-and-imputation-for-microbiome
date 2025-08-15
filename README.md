@@ -14,7 +14,7 @@ Python script for log-transformations, imputation, and forecasting is "Transform
 
 - is_median: do we want to use median or mean when select optimal number of features. 1 is for median, 0 is for mean (default)
 
-- is_balanced: do we want to use weights during classification? 0 is for equal weights (default), 0 is for weight depending on class size.
+- is_balanced: do we want to use weights during classification? 0 is for equal weights (default), 1 is for weight depending on class size.
 
 **Reproducibility**
 
