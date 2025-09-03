@@ -101,7 +101,7 @@ def imputation_linear(args):
     return Y_output
 
 def imputation_SVR(args):
-    args = Y_nm, Y_m, Y_input
+    Y_nm, Y_m, Y_input = args
     Y_output = []
     reg = make_pipeline(StandardScaler(), SVR())
     for i in range(np.shape(Y_m)[1]):
@@ -194,7 +194,7 @@ def imputation_cGAN1(args):
     return Y_output
 
 def imputation_CVAE1(args):
-    args = Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m
+    Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m = args
     latent_dim = 1
     epochs = 1000
     class Encoder(nn.Module):
