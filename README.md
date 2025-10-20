@@ -41,7 +41,8 @@ Use --Imputation_type="Imputation" to include artificial data with y=-1 as well.
 - Run Depression bacteria list.ipynb to reproduce results from Table 5.
 
 - Run Depression forecast by depression.ipynb to forecast postpartum depression from EPDS during pregnancy
-- - Run Depression forecast by Shannon.ipynb to forecast postpartum depression from Shannon entropy
+- 
+- Run Depression forecast by Shannon.ipynb to forecast postpartum depression from Shannon entropy
 
 - Run Depression forecast by missingness.ipynb to forecast postpartum depression from the information about missingness only
 
