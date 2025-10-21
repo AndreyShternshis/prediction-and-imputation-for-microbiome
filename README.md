@@ -26,7 +26,7 @@ python Transformation_Imputation_Forecasting.py
 
 python Transformation_Imputation_Forecasting.py --Imputation_type="No" --Transoformation_type="ALR"
 
-- To reproduce results from Section 5.2 by Oversampling run from terminal
+- To reproduce results from Section 4.2 by Oversampling run from terminal
 
 python Transformation_Imputation_Forecasting.py --Dataset_N=1 --is_median=1 --Imputation_type="Oversampling" --Imputation_by="GPR"
 
