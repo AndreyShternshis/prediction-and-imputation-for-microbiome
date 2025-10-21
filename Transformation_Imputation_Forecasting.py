@@ -60,7 +60,6 @@ def script(is_balanced, is_median, Dataset_N, Imputation_type, Imputation_by, Tr
         Metadata.loc[Metadata.TimePoint == "Trimester2", "TimePoint"] = 0  # timepoits are 0,1,2
         Metadata.loc[Metadata.TimePoint == "Trimester3", "TimePoint"] = 1
         Metadata.loc[Metadata.TimePoint == "PostpartumWeek6", "TimePoint"] = 2
-        i = Metadata[Metadata.ReadsNumber < 500000].index  # remove insufficient reads
         TARGET = 2 * np.ones_like(Metadata.EPDS)  # 2 is for missingness
         TARGET[Metadata.EPDS > binary] = 1  # binary labels for depression
         TARGET[Metadata.EPDS <= binary] = 0
@@ -71,6 +70,8 @@ def script(is_balanced, is_median, Dataset_N, Imputation_type, Imputation_by, Tr
         Metadata.loc[Metadata.tp == "4_fourmonth", "tp"] = 1
         Metadata.loc[Metadata.tp == "5_sixmonth", "tp"] = 2
         time = [".3.twomonth", ".4.fourmonth", ".5.sixmonth"]
+        i = Metadata[pd.Series.isna(Metadata.case_id)].index #remove NaN values
+        Metadata = Metadata.drop(i)
         TARGET = np.zeros_like(Metadata.case_id)
         TARGET[Metadata.case_id.to_numpy() == "AP Case"] = 1
     #read file with compositional data (depending on dataset number)
@@ -181,7 +182,7 @@ def script(is_balanced, is_median, Dataset_N, Imputation_type, Imputation_by, Tr
     ###imputation, transformation, and classification of data into for-loops for imputation, test, and validation sets
     X_f, X_t = X_full[labels == 0], X_full[labels == 1]  # f = healthy, t = depressed/allegic
     size_f, size_t = np.shape(X_f)[0], np.shape(X_t)[0]
-    print("sizes of complete f and t sets:", size_f, size_t)
+    print("sizes of complete sets:", size_f, size_t)
     test_f, test_t = int(size_f * test), int(size_t * test)  # sizes of test sets
     AUC_TEST, N_OPT, SENSITIVITY, SPECIFICITY = [[] for _ in range(4)]
     for IS in range(Imputation_sets): #iterating over imputation sets since the imputed values can be random
