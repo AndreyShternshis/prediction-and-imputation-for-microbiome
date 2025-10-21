@@ -2,6 +2,7 @@ The repository presents scripts used in the paper "**Predicting allergy and post
 
 Python script for log-transformations, imputation, and forecasting is "Transformation_Imputation_Forecasting.py". Find below its parameters and instructions to run the script.
 
+
 **User-defined parameters:**
 
 - Dataset_N: The number of dataset in the paper. Default is 2.
@@ -15,6 +16,19 @@ Python script for log-transformations, imputation, and forecasting is "Transform
 - is_median: do we want to use median or mean when select optimal number of features. 1 is for median, 0 is for mean (default)
 
 - is_balanced: do we want to use weights during classification? 0 is for equal weights (default), 1 is for weight depending on class size.
+
+**Data**
+
+To run the codes, 2 files are needed for each dataset: metadata and species profile.
+
+- [Dataset 1](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJEB62678) is available on NCBI under BioProject PRJEB62678. In the species profile, name the first column Sample_id.
+- [Dataset 2](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA730851) can be found on NCBI BioProject PRJNA730851.
+
+**Requirements** 
+
+The versions of python modules are listed in requirements.txt. Install them by _pip install -r requirements.txt _ in terminal.
+
+Alternatively, import conda enviroment from _conda environment.yaml_
 
 **Reproducibility**
 
@@ -54,15 +68,5 @@ Folder libraries include libraries for transformation and imputation.
 
 - Transformation_library provide functions for logarithm transformations and softmax.
 
-**Data**
-
-To run the codes, 2 files are needed for each dataset: metadata and species profile.
-
-- Dataset 1 is available on NCBI under BioProject PRJEB62678. In the species profile, name the first column Sample_id.
-- Dataset 2 can be found on NCBI BioProject PRJNA730851.
-
-**Requirements** 
-
-The versions of all python modules are listed in requirements.txt
 
 
