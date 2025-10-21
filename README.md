@@ -18,15 +18,15 @@ Python script for log-transformations, imputation, and forecasting is "Transform
 
 **Reproducibility**
 
-- To reproduce results from Table 8 run from terminal 
+- To reproduce results from Table 9 run from terminal 
 
 python Transformation_Imputation_Forecasting.py
 
-- To reproduce results from Table 7 run from terminal
+- To reproduce results from Table 8 run from terminal
 
 python Transformation_Imputation_Forecasting.py --Imputation_type="No" --Transoformation_type="ALR"
 
-- To reproduce results from Section 5.2 by Oversampling run from terminal
+- To reproduce results from Section 4.2 by Oversampling run from terminal
 
 python Transformation_Imputation_Forecasting.py --Dataset_N=1 --is_median=1 --Imputation_type="Oversampling" --Imputation_by="GPR"
 
@@ -40,10 +40,11 @@ Use --Imputation_type="Imputation" to include artificial data with y=-1 as well.
 
 - Run Depression bacteria list.ipynb to reproduce results from Table 5.
 
-- Run Depression forecast by depression.ipynb to forecast postpartum depression from EPDS during pregnancy
-- - Run Depression forecast by Shannon.ipynb to forecast postpartum depression from Shannon entropy
+- Run Depression forecast by depression.ipynb to forecast postpartum depression from EPDS during pregnancy.
 
-- Run Depression forecast by missingness.ipynb to forecast postpartum depression from the information about missingness only
+- Run Depression forecast by Shannon.ipynb to forecast postpartum depression from Shannon entropy.
+
+- Run Depression forecast by missingness.ipynb to forecast postpartum depression from the information about missingness only.
 
 **Libraries**
 
