@@ -41,7 +41,8 @@ pip install -r requirements.txt in terminal
 ```
 Go to Enviroments (left tab)
 Click "Import" (left bottom tab)
-Choose  
+Choose  conda_environment.yaml located in the folder prediction-and-imputation-for-microbiome
+From Home (left tab) run scripts launching JupyterLab/PyCharm/VSCode
 ```
 
 # User-defined parameters
