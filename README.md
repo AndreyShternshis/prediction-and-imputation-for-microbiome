@@ -3,7 +3,7 @@ The repository presents scripts used in the paper "**Predicting allergy and post
 Python script for log-transformations, imputation, and forecasting is "Transformation_Imputation_Forecasting.py". Find below its parameters and instructions to run the script.
 
 
-**User-defined parameters:**
+# User-defined parameters
 
 - Dataset_N: The number of dataset in the paper. Default is 2.
 
