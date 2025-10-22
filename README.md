@@ -1,5 +1,9 @@
 The repository presents scripts used in the paper "**Predicting allergy and postpartum depression from incomplete compositional microbiome**." for reproducibility and further usage.
 
+
+<img width="1304" height="476" alt="image" src="https://github.com/user-attachments/assets/f6cb7fac-4ff7-4011-80b7-7f7ca509dd21" />
+
+
 Python script for log-transformations, imputation, and forecasting is "Transformation_Imputation_Forecasting.py". Find below its parameters and instructions to run the script.
 
 
