@@ -17,20 +17,20 @@ Python script for log-transformations, imputation, and forecasting is "Transform
 
 - is_balanced: do we want to use weights during classification? 0 is for equal weights (default), 1 is for weight depending on class size.
 
-**Data**
+# Data
 
 To run the codes, 2 files are needed for each dataset: metadata and species profile.
 
 - [Dataset 1](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJEB62678) is available on NCBI under BioProject PRJEB62678. In the species profile, name the first column Sample_id.
 - [Dataset 2](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA730851) can be found on NCBI BioProject PRJNA730851.
 
-**Requirements** 
+# Requirements
 
 The versions of python modules are listed in requirements.txt. Install them by _pip install -r requirements.txt _ in terminal.
 
 Alternatively, import conda enviroment from _conda environment.yaml_
 
-**Reproducibility**
+# Reproducibility
 
 - To reproduce results from Table 9 run from terminal 
 
@@ -46,7 +46,7 @@ python Transformation_Imputation_Forecasting.py --Dataset_N=1 --is_median=1 --Im
 
 Use --Imputation_type="Imputation" to include artificial data with y=-1 as well.
 
-**Python notebooks**
+# Python notebooks
 
 - Transformation_Imputation_Forecasting.py exists in notebook format .ipynb as well.
 
@@ -60,7 +60,7 @@ Use --Imputation_type="Imputation" to include artificial data with y=-1 as well.
 
 - Run Depression forecast by missingness.ipynb to forecast postpartum depression from the information about missingness only.
 
-**Libraries**
+# Libraries
 
 Folder libraries include libraries for transformation and imputation.
 
