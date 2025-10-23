@@ -1,3 +1,6 @@
+"""
+This library is the colelction of methods for imputation. It contains scripts for constructing inputs and returning outputs for imputation methods as well as functions for generative modeling.
+"""
 from libraries import Transformation_library
 import numpy as np
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -15,7 +18,10 @@ from sklearn.preprocessing import StandardScaler
 #imputation_GPR(Y_nm, Y_m, Y_input, seed_sampling)
 #imputation_linear(Y_nm, Y_m, Y_input)
 #imputation_SVR(Y_nm, Y_m, Y_input)
-def impute(X_full, X_val, X_part, nm, m, seed_sampling, arg, Imputation_by): #for imputing only needed bacteria
+def impute(X_full, X_val, X_part, nm, m, seed_sampling, arg, Imputation_by): 
+    """
+    function used for imputation of subset of bacteria. The numbers of bacteria are given in argument arg.
+    """
     X_input = X_part[:, nm, :]
     Y_input = Transformation_library.CLR(X_input, keepdim=False)
     Y_full, Y_val = Transformation_library.CLR(X_full, keepdim = False), Transformation_library.CLR(X_val, keepdim=False)
@@ -34,7 +40,10 @@ def impute(X_full, X_val, X_part, nm, m, seed_sampling, arg, Imputation_by): #fo
     X_part[:, m, arg] = Transformation_library.softmax(Y_output)[:,:-1]
     return X_part
 
-def impute_one(X_full, X_val, X_part, nm, m, seed_sampling, Imputation_by):  #for imputing one tp from two tps
+def impute_one(X_full, X_val, X_part, nm, m, seed_sampling, Imputation_by):
+    """
+    function used for imputation one time points given the data from two other timepoints
+    """
     X_input = X_part[:, nm, :]
     Y_input = Transformation_library.CLR(X_input, keepdim=False)
     Y_input = Y_input.reshape(np.shape(Y_input)[0], -1)
@@ -55,7 +64,10 @@ def impute_one(X_full, X_val, X_part, nm, m, seed_sampling, Imputation_by):  #fo
     X_part[:, m, :] = Transformation_library.softmax(Y_output)
     return X_part
 
-def impute_two(D_02, D_12, X_val, X_2, nm, m, seed_sampling, Imputation_by): #for imputing two tp from 1 tp
+def impute_two(D_02, D_12, X_val, X_2, nm, m, seed_sampling, Imputation_by):
+    """
+    function used for imputation two time points given the data from the other timepoint
+    """
     Y_input = Transformation_library.CLR(X_2[:, nm, :], keepdim = False)
     Y_nm, Y_val_nm = Transformation_library.CLR(D_02[:, nm, :], keepdim = False), Transformation_library.CLR(X_val[:, nm, :], keepdim = False)  # not missing
     Y_m, Y_val_m = Transformation_library.CLR(D_02[:, m[0], :], keepdim = False), Transformation_library.CLR(X_val[:, m[0], :], keepdim = False) # missing
@@ -87,6 +99,9 @@ def impute_two(D_02, D_12, X_val, X_2, nm, m, seed_sampling, Imputation_by): #fo
     return X_2
 
 def imputation_GPR(args):
+    """
+    imputation by Gaussian Random Processes
+    """
     Y_nm, Y_m, Y_input, seed_sampling = args
     gp = GaussianProcessRegressor(n_restarts_optimizer=5, random_state = seed_sampling)
     gp.fit(Y_nm, Y_m)
@@ -94,6 +109,9 @@ def imputation_GPR(args):
     return Y_output
 
 def imputation_linear(args):
+    """
+    imputation by linear regression
+    """
     Y_nm, Y_m, Y_input = args
     reg = LinearRegression()
     reg.fit(Y_nm, Y_m)
@@ -101,6 +119,9 @@ def imputation_linear(args):
     return Y_output
 
 def imputation_SVR(args):
+    """
+    imputation by Suport Vector Machine
+    """
     Y_nm, Y_m, Y_input = args
     Y_output = []
     reg = make_pipeline(StandardScaler(), SVR())
@@ -111,6 +132,9 @@ def imputation_SVR(args):
     return Y_output
 
 def imputation_cGAN1(args):
+    """
+    imputation by conditional Generative Adversarial Nets with one hidden layer
+    """
     Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m = args
     latent_dim = 1
     epochs = 1000
@@ -194,6 +218,9 @@ def imputation_cGAN1(args):
     return Y_output
 
 def imputation_CVAE1(args):
+    """
+    imputation by Conditional Variational Autoencoders
+    """
     Y_nm, Y_m, Y_input, seed_sampling, Y_val_nm, Y_val_m = args
     latent_dim = 1
     epochs = 1000
