@@ -4,7 +4,7 @@ The repository presents scripts used in the paper "**Predicting allergy and post
 <img width="1304" height="476" alt="image" src="https://github.com/user-attachments/assets/f6cb7fac-4ff7-4011-80b7-7f7ca509dd21" />
 
 
-Python script for log-transformations, imputation, and forecasting is "Transformation_Imputation_Forecasting.py". Find below instructions how to run the script and its parameters.
+Scripts in Python 3.10 for log-transformations, imputation, and forecasting is "Transformation_Imputation_Forecasting.py". Find below instructions how to run the script and its parameters.
 
 # Data
 
