@@ -30,10 +30,10 @@ git clone https://github.com/AndreyShternshis/prediction-and-imputation-for-micr
 conda create -n microb python=3.10
 conda activate microb
 ```
-- Import required packages
+- Import required packages in terminal
 
 ```
-pip install -r requirements.txt in terminal
+pip install -r requirements.txt
 ```
 
 **Alternatively**, use graphical interface in [Anaconda-Navigator](https://www.anaconda.com/products/navigator)
